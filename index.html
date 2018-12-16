@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style:none
+        }
+        .num-table{
+            position: relative;
+        }
+        .num-box {
+            margin: 0 auto;
+            width: 540px;
+            height:540px;
+            position: relative;
+        }
+        .num-row .num-col {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            float: left;
+            box-sizing: border-box;
+            text-align: center;
+            background: #58B7FF;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            border: 1px solid #ccc;
+        }
+        .num-check {
+            position: absolute;
+            width: 180px;
+            box-shadow: 0 0 10px 0 #000;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+        .num-check li {
+            box-sizing: border-box;
+            float: left;
+            background: #fff;
+            color: #58B7FF;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 24px;
+            border: 1px solid #58B7FF;
+            cursor: pointer;
+        }
+        .num-check li:hover {
+            color: #fff;
+            background: #58B7FF;
+            border: 1px solid #fff;
+        }
+        .btn {
+            background: #58B7FF;
+            color: #fff;
+            width: 120px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            border: 1px solid #58B7FF;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0px;
+        }
+        .btn:hover {
+            background:#fff;
+            color:  #58B7FF;
+        }
+        h4 {
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            line-height: 40px;
+        }
+
+    </style>
+    <script>
+        var isShowNumCheck = false
+        var curIndex = -1
+        var clickNum = function (id) {
+            
+            var num_div = document.querySelector("#index"+id);
+            var num_check = document.querySelector('.num-check');
+            var col = id % 9
+            var row = Math.floor(id / 9)
+
+            num_check.style.left = (col + 1)*60+'px'
+            num_check.style.top = (row + 1)*60+'px'
+            console.log('top:'+num_check.style.top);
+            
+
+            if(id==curIndex|| curIndex==-1){
+                isShowNumCheck = !isShowNumCheck
+                num_check.style.display = isShowNumCheck?'block':'none'
+            } else {
+                num_check.style.display ='block'
+            }
+            
+            curIndex = id
+        } 
+        var inputText = function(num){
+            console.log("输入"+num);
+            if(curIndex>=0&&curIndex<81){
+                var num_div = document.querySelector("#index"+curIndex);
+                num_div.innerText = num
+            }
+        }
+        var solver = function () {
+            console.log('求解');
+            
+        }
+    </script>
+</head>
+<body>
+    <h4>数独</h4>
+    <p>点击选择数字填入</p>
+    <div class="num-table">
+        <div class="num-box">
+            <div class="num-row">
+                <div class="num-col" id="index0" onClick="clickNum(0)"></div>
+                <div class="num-col" id="index1" onClick="clickNum(1)"></div>
+                <div class="num-col" id="index2" onClick="clickNum(2)"></div>
+                <div class="num-col" id="index3" onClick="clickNum(3)"></div>
+                <div class="num-col" id="index4" onClick="clickNum(4)"></div>
+                <div class="num-col" id="index5" onClick="clickNum(5)"></div>
+                <div class="num-col" id="index6" onClick="clickNum(6)"></div>
+                <div class="num-col" id="index7" onClick="clickNum(7)"></div>
+                <div class="num-col" id="index8" onClick="clickNum(8)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index9" onClick="clickNum(9)"></div>
+                <div class="num-col" id="index10" onClick="clickNum(10)"></div>
+                <div class="num-col" id="index11" onClick="clickNum(11)"></div>
+                <div class="num-col" id="index12" onClick="clickNum(12)"></div>
+                <div class="num-col" id="index13" onClick="clickNum(13)"></div>
+                <div class="num-col" id="index14" onClick="clickNum(14)"></div>
+                <div class="num-col" id="index15" onClick="clickNum(15)"></div>
+                <div class="num-col" id="index16" onClick="clickNum(16)"></div>
+                <div class="num-col" id="index17" onClick="clickNum(17)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index18" onClick="clickNum(18)"></div>
+                <div class="num-col" id="index19" onClick="clickNum(19)"></div>
+                <div class="num-col" id="index20" onClick="clickNum(20)"></div>
+                <div class="num-col" id="index21" onClick="clickNum(21)"></div>
+                <div class="num-col" id="index22" onClick="clickNum(22)"></div>
+                <div class="num-col" id="index23" onClick="clickNum(23)"></div>
+                <div class="num-col" id="index24" onClick="clickNum(24)"></div>
+                <div class="num-col" id="index25" onClick="clickNum(25)"></div>
+                <div class="num-col" id="index26" onClick="clickNum(26)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index27" onClick="clickNum(27)"></div>
+                <div class="num-col" id="index28" onClick="clickNum(28)"></div>
+                <div class="num-col" id="index29" onClick="clickNum(29)"></div>
+                <div class="num-col" id="index30" onClick="clickNum(30)"></div>
+                <div class="num-col" id="index31" onClick="clickNum(31)"></div>
+                <div class="num-col" id="index32" onClick="clickNum(32)"></div>
+                <div class="num-col" id="index33" onClick="clickNum(33)"></div>
+                <div class="num-col" id="index34" onClick="clickNum(34)"></div>
+                <div class="num-col" id="index35" onClick="clickNum(35)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index36" onClick="clickNum(36)"></div>
+                <div class="num-col" id="index37" onClick="clickNum(37)"></div>
+                <div class="num-col" id="index38" onClick="clickNum(38)"></div>
+                <div class="num-col" id="index39" onClick="clickNum(39)"></div>
+                <div class="num-col" id="index40" onClick="clickNum(40)"></div>
+                <div class="num-col" id="index41" onClick="clickNum(41)"></div>
+                <div class="num-col" id="index42" onClick="clickNum(42)"></div>
+                <div class="num-col" id="index43" onClick="clickNum(43)"></div>
+                <div class="num-col" id="index44" onClick="clickNum(44)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index45" onClick="clickNum(45)"></div>
+                <div class="num-col" id="index46" onClick="clickNum(46)"></div>
+                <div class="num-col" id="index47" onClick="clickNum(47)"></div>
+                <div class="num-col" id="index48" onClick="clickNum(48)"></div>
+                <div class="num-col" id="index49" onClick="clickNum(49)"></div>
+                <div class="num-col" id="index50" onClick="clickNum(50)"></div>
+                <div class="num-col" id="index51" onClick="clickNum(51)"></div>
+                <div class="num-col" id="index52" onClick="clickNum(52)"></div>
+                <div class="num-col" id="index53" onClick="clickNum(53)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index54" onClick="clickNum(54)"></div>
+                <div class="num-col" id="index55" onClick="clickNum(55)"></div>
+                <div class="num-col" id="index56" onClick="clickNum(56)"></div>
+                <div class="num-col" id="index57" onClick="clickNum(57)"></div>
+                <div class="num-col" id="index58" onClick="clickNum(58)"></div>
+                <div class="num-col" id="index59" onClick="clickNum(59)"></div>
+                <div class="num-col" id="index60" onClick="clickNum(60)"></div>
+                <div class="num-col" id="index61" onClick="clickNum(61)"></div>
+                <div class="num-col" id="index62" onClick="clickNum(62)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index63" onClick="clickNum(63)"></div>
+                <div class="num-col" id="index64" onClick="clickNum(64)"></div>
+                <div class="num-col" id="index65" onClick="clickNum(65)"></div>
+                <div class="num-col" id="index66" onClick="clickNum(66)"></div>
+                <div class="num-col" id="index67" onClick="clickNum(67)"></div>
+                <div class="num-col" id="index68" onClick="clickNum(68)"></div>
+                <div class="num-col" id="index69" onClick="clickNum(69)"></div>
+                <div class="num-col" id="index70" onClick="clickNum(70)"></div>
+                <div class="num-col" id="index71" onClick="clickNum(71)"></div>
+            </div>
+            <div class="num-row">
+                <div class="num-col" id="index72" onClick="clickNum(72)"></div>
+                <div class="num-col" id="index73" onClick="clickNum(73)"></div>
+                <div class="num-col" id="index74" onClick="clickNum(74)"></div>
+                <div class="num-col" id="index75" onClick="clickNum(75)"></div>
+                <div class="num-col" id="index76" onClick="clickNum(76)"></div>
+                <div class="num-col" id="index77" onClick="clickNum(77)"></div>
+                <div class="num-col" id="index78" onClick="clickNum(78)"></div>
+                <div class="num-col" id="index79" onClick="clickNum(79)"></div>
+                <div class="num-col" id="index80" onClick="clickNum(80)"></div>
+            </div>
+            <div class="num-check" >
+                    <ul>
+                        <li onClick="inputText(1)">1</li>
+                        <li onClick="inputText(2)">2</li>
+                        <li onClick="inputText(3)">3</li>
+                        <li onClick="inputText(4)">4</li>
+                        <li onClick="inputText(5)">5</li>
+                        <li onClick="inputText(6)">6</li>
+                        <li onClick="inputText(7)">7</li>
+                        <li onClick="inputText(8)">8</li>
+                        <li onClick="inputText(9)">9</li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+    <input class='btn' type="button" value="求解" onClick='solver()'>
+</body>
+</html>
