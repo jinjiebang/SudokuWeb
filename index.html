@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +31,7 @@
             box-sizing: border-box;
             text-align: center;
             background: #58B7FF;
-            color: #fff;
+            color: rgb(34, 31, 31);
             font-size: 24px;
             font-weight: bold;
             border: 1px solid #ccc;
@@ -73,11 +74,17 @@
             border-radius: 5px;
             cursor: pointer;
             display: block;
-            margin: 20px auto 0px;
+            float: left;
+            margin: 20px 40px 0px 20px;
         }
         .btn:hover {
             background:#fff;
             color:  #58B7FF;
+        }
+        .btn-box {
+            width: 540px;
+            height: 100px;
+            margin: 0px auto;
         }
         h4 {
             text-align: center;
@@ -88,43 +95,9 @@
         }
 
     </style>
-    <script>
-        var isShowNumCheck = false
-        var curIndex = -1
-        var clickNum = function (id) {
-            
-            var num_div = document.querySelector("#index"+id);
-            var num_check = document.querySelector('.num-check');
-            var col = id % 9
-            var row = Math.floor(id / 9)
 
-            num_check.style.left = (col + 1)*60+'px'
-            num_check.style.top = (row + 1)*60+'px'
-            console.log('top:'+num_check.style.top);
-            
-
-            if(id==curIndex|| curIndex==-1){
-                isShowNumCheck = !isShowNumCheck
-                num_check.style.display = isShowNumCheck?'block':'none'
-            } else {
-                num_check.style.display ='block'
-            }
-            
-            curIndex = id
-        } 
-        var inputText = function(num){
-            console.log("输入"+num);
-            if(curIndex>=0&&curIndex<81){
-                var num_div = document.querySelector("#index"+curIndex);
-                num_div.innerText = num
-            }
-        }
-        var solver = function () {
-            console.log('求解');
-            
-        }
-    </script>
 </head>
+
 <body>
     <h4>数独</h4>
     <p>点击选择数字填入</p>
@@ -229,21 +202,117 @@
                 <div class="num-col" id="index79" onClick="clickNum(79)"></div>
                 <div class="num-col" id="index80" onClick="clickNum(80)"></div>
             </div>
-            <div class="num-check" >
-                    <ul>
-                        <li onClick="inputText(1)">1</li>
-                        <li onClick="inputText(2)">2</li>
-                        <li onClick="inputText(3)">3</li>
-                        <li onClick="inputText(4)">4</li>
-                        <li onClick="inputText(5)">5</li>
-                        <li onClick="inputText(6)">6</li>
-                        <li onClick="inputText(7)">7</li>
-                        <li onClick="inputText(8)">8</li>
-                        <li onClick="inputText(9)">9</li>
-                    </ul>
-                </div>
+            <div class="num-check">
+                <ul>
+                    <li onClick="inputText(1)">1</li>
+                    <li onClick="inputText(2)">2</li>
+                    <li onClick="inputText(3)">3</li>
+                    <li onClick="inputText(4)">4</li>
+                    <li onClick="inputText(5)">5</li>
+                    <li onClick="inputText(6)">6</li>
+                    <li onClick="inputText(7)">7</li>
+                    <li onClick="inputText(8)">8</li>
+                    <li onClick="inputText(9)">9</li>
+                </ul>
+            </div>
         </div>
     </div>
-    <input class='btn' type="button" value="求解" onClick='solver()'>
+    <div class="btn-box">
+        <input class='btn' type="button" value="出题" onClick='showSubject()'>
+        <input class='btn' type="button" value="求解" onClick='solve()'>
+        <input class='btn' type="button" value="清空" onClick='clearSudoku()'>
+    </div>
+    
+    <script type="text/javascript" src="SudokuSolver.js"></script>
+    <script type="text/javascript" src="SubjectList.js"></script>
+    <script>
+        var isShowNumCheck = false
+        var curIndex = -1
+        var clickNum = function (id) {
+
+            var num_div = document.querySelector("#index" + id);
+            var num_check = document.querySelector('.num-check');
+            var col = id % 9
+            var row = Math.floor(id / 9)
+
+            num_check.style.left = (col + 1) * 60 + 'px'
+            num_check.style.top = (row + 1) * 60 + 'px'
+            console.log('top:' + num_check.style.top);
+
+
+            if (id == curIndex || curIndex == -1) {
+                isShowNumCheck = !isShowNumCheck
+                num_check.style.display = isShowNumCheck ? 'block' : 'none'
+            } else {
+                num_check.style.display = 'block'
+            }
+
+            curIndex = id
+        }
+        var inputText = function (num) {
+            console.log("输入" + num);
+            if (curIndex >= 0 && curIndex < 81) {
+                var num_div = document.querySelector("#index" + curIndex);
+                num_div.innerText = num
+            }
+        }
+        var solve = function () {
+            var sudokuSolver = new SudokuSolver()
+            // var data = SubjectList[0]
+            var data = []
+            for (var i = 0; i < 9; i++) {
+                data[i] = []
+                for (var j = 0; j < 9; j++) {
+                    data[i][j] = document.querySelector("#index" + (i * 9 + j)).innerText;
+                    if (!data[i][j]) data[i][j] = 0;
+                    else data[i][j] = Number(data[i][j]);
+                }
+            }
+            console.log('html data:', data);
+            sudokuSolver.setData(data);
+            var results = sudokuSolver.solve();
+            if (results.length > 0) {
+                var answer = results[0];
+                for (var i = 0; i < 9; i++) {
+                    for (var j = 0; j < 9; j++) {
+                        var num_div = document.querySelector("#index" + (i * 9 + j));
+                        if(!num_div.innerText){
+                            num_div.innerText = answer[i][j];
+                        }
+                    }
+                }
+            }
+        }
+        var clearSudoku = function () {
+            console.log('clear')
+            for (var i = 0; i < 9; i++) {
+                for (var j = 0; j < 9; j++) {
+                    if (subjectData[i][j]==0){
+                        document.querySelector("#index" + (i * 9 + j)).innerText = "";
+                    }
+                }
+            }
+        }
+        var subjectData = []
+        var showSubject = function () {
+            subjectData = SubjectList[Math.floor(Math.random() * SubjectList.length)]
+            console.log('subject data:' ,subjectData)
+            for (var i = 0; i < 9; i++) {
+                for (var j = 0; j < 9; j++) {
+                    var str = "";
+                    if (subjectData[i][j] != 0) {
+                        document.querySelector("#index" + (i * 9 + j)).innerText = subjectData[i][j]
+                        document.querySelector("#index" + (i * 9 + j)).style.background = '#58B7FF';
+                    } else {
+                        document.querySelector("#index" + (i * 9 + j)).innerText = ''
+                        document.querySelector("#index" + (i * 9 + j)).style.background = '#fff';
+                    }
+
+                }
+            }
+        }
+        showSubject()
+    </script>
 </body>
+
 </html>
